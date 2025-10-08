@@ -33,6 +33,15 @@ const Navbar = () => {
     { href: "/careers", label: "Careers" },
   ];
 
+  const scrollToServices = () => {
+    if (location.pathname === "/") {
+      const servicesEl = document.getElementById("services");
+      if (servicesEl) {
+        servicesEl.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  };
+
   return (
     <header
       className={cn(
