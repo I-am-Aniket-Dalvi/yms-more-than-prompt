@@ -33,21 +33,12 @@ const Navbar = () => {
     { href: "/careers", label: "Careers" },
   ];
 
-  const scrollToServices = () => {
-    if (location.pathname === "/") {
-      const servicesEl = document.getElementById("services");
-      if (servicesEl) {
-        servicesEl.scrollIntoView({ behavior: "smooth" });
-      }
-    }
-  };
-
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
         isScrolled
-          ? "bg-secondary/95 backdrop-blur-md shadow-lg"
+          ? "bg-secondary/98 backdrop-blur-lg shadow-lg border-b border-white/10"
           : "bg-transparent"
       )}
     >
@@ -56,17 +47,20 @@ const Navbar = () => {
           {/* Logo */}
           <Link
             to="/"
-            className="flex items-center gap-3 text-primary-foreground hover:opacity-90 transition-opacity"
+            className={cn(
+              "flex items-center gap-3 text-primary-foreground hover:opacity-90 transition-all duration-300",
+              "group"
+            )}
           >
             <img
               src="/logo.png"
               alt="Company Logo"
-              className="h-10 w-10 object-contain"
+              className="h-10 w-10 object-contain transition-transform duration-300 group-hover:scale-110"
             />
-            <span className="font-semibold text-lg lg:text-xl hidden sm:block">
+            <span className="font-poppins font-semibold text-lg lg:text-xl hidden sm:block">
               YMS Consulting Engineers
             </span>
-            <span className="font-semibold text-lg sm:hidden">YMS</span>
+            <span className="font-poppins font-semibold text-lg sm:hidden">YMS</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -76,11 +70,13 @@ const Navbar = () => {
                 <Button
                   variant="ghost"
                   className={cn(
-                    "text-primary-foreground hover:text-primary-foreground hover:bg-primary/20 transition-colors",
-                    location.pathname === link.href && "bg-primary/20"
+                    "font-poppins text-primary-foreground hover:text-primary-foreground hover:bg-white/10 transition-all duration-300 rounded-full px-4",
+                    "relative overflow-hidden group",
+                    location.pathname === link.href && "bg-white/15"
                   )}
                 >
-                  {link.label}
+                  <span className="relative z-10">{link.label}</span>
+                  <span className="absolute inset-0 bg-white/5 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
                 </Button>
               </Link>
             ))}
@@ -90,7 +86,10 @@ const Navbar = () => {
           <Button
             variant="ghost"
             size="icon"
-            className="lg:hidden text-primary-foreground hover:bg-primary/20"
+            className={cn(
+              "lg:hidden text-primary-foreground hover:bg-white/10 transition-all duration-300 rounded-full",
+              isMobileMenuOpen && "bg-white/15"
+            )}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -100,14 +99,14 @@ const Navbar = () => {
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
           <div className="lg:hidden pb-4 animate-in slide-in-from-top-2 duration-300">
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 bg-secondary/95 backdrop-blur-lg rounded-2xl p-4 shadow-2xl border border-white/10">
               {navLinks.map((link) => (
                 <Link key={link.href} to={link.href}>
                   <Button
                     variant="ghost"
                     className={cn(
-                      "w-full justify-start text-primary-foreground hover:bg-primary/20",
-                      location.pathname === link.href && "bg-primary/20"
+                      "w-full justify-start font-poppins text-primary-foreground hover:bg-white/10 rounded-full transition-all duration-300",
+                      location.pathname === link.href && "bg-white/15"
                     )}
                   >
                     {link.label}

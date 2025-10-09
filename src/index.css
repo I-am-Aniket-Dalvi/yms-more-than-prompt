@@ -40,12 +40,20 @@ All colors MUST be HSL.
 
     --radius: 0.75rem;
     
-    /* Custom design tokens */
+    /* Custom design tokens - Weblounge-inspired */
+    --gradient-primary: linear-gradient(135deg, hsl(0 100% 25%) 0%, hsl(0 100% 35%) 50%, hsl(0 100% 45%) 100%);
+    --gradient-overlay: linear-gradient(135deg, hsl(0 100% 25% / 0.95) 0%, hsl(0 0% 13% / 0.9) 100%);
+    --gradient-subtle: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(0 0% 98%) 100%);
+    --gradient-dark: linear-gradient(135deg, hsl(0 0% 13%) 0%, hsl(0 0% 8%) 100%);
+    
     --hero-overlay: linear-gradient(135deg, hsl(0 100% 25% / 0.9) 0%, hsl(0 0% 13% / 0.85) 100%);
     --card-shadow: 0 4px 20px hsl(0 0% 0% / 0.08);
     --card-shadow-hover: 0 12px 40px hsl(0 0% 0% / 0.15);
+    --card-shadow-premium: 0 20px 60px hsl(0 0% 0% / 0.12);
+    
     --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-elegant: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 
     --sidebar-background: 0 0% 98%;
 
@@ -111,19 +119,39 @@ All colors MUST be HSL.
   body {
     @apply bg-background text-foreground font-sans antialiased;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    overflow-x: hidden;
   }
   
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
+  
+  /* Premium scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--muted));
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--primary));
+    border-radius: 5px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--primary-light));
   }
 }
 
 @layer utilities {
   .animate-on-scroll {
     opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
-                transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateY(40px);
+    transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 1s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
   .animate-on-scroll.visible {
@@ -131,18 +159,44 @@ All colors MUST be HSL.
     transform: translateY(0);
   }
   
+  .animate-on-scroll-fade {
+    opacity: 0;
+    transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .animate-on-scroll-fade.visible {
+    opacity: 1;
+  }
+  
   .hover-lift {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: var(--transition-smooth);
   }
   
   .hover-lift:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--card-shadow-hover);
+    transform: translateY(-12px);
+    box-shadow: var(--card-shadow-premium);
+  }
+  
+  .hover-scale {
+    transition: var(--transition-elegant);
+  }
+  
+  .hover-scale:hover {
+    transform: scale(1.02);
+  }
+  
+  .gradient-text {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
   
   @media (prefers-reduced-motion: reduce) {
     .animate-on-scroll,
+    .animate-on-scroll-fade,
     .hover-lift,
+    .hover-scale,
     * {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
