@@ -2,11 +2,21 @@ import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Contact from "@/components/Contact";
+import ImageLightbox from "@/components/ImageLightbox";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const ClientsPage = () => {
   useScrollAnimation();
   const [activeFilter, setActiveFilter] = useState("all");
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxImage, setLightboxImage] = useState("");
+  const [lightboxTitle, setLightboxTitle] = useState("");
+
+  const openLightbox = (src: string, index: number) => {
+    setLightboxImage(src);
+    setLightboxTitle(`Client ${index + 1}`);
+    setLightboxOpen(true);
+  };
 
   const filters = [
     { id: "all", label: "All" },
@@ -135,15 +145,11 @@ const ClientsPage = () => {
               {filteredClients.map((client, index) => (
                 <div
                   key={index}
-                  className="animate-on-scroll hover-lift group"
+                  className="animate-on-scroll hover-lift group cursor-pointer"
                   style={{ animationDelay: `${(index % 20) * 50}ms` }}
+                  onClick={() => openLightbox(client.src, index)}
                 >
-                  <a 
-                    href={client.src} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="block relative overflow-hidden rounded-xl shadow-md"
-                  >
+                  <div className="block relative overflow-hidden rounded-xl shadow-md">
                     <img
                       src={client.src}
                       alt={`Client ${index + 1}`}
@@ -153,7 +159,7 @@ const ClientsPage = () => {
                     <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/60 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center">
                       <span className="font-poppins text-white font-bold text-lg px-6 py-2 bg-white/20 backdrop-blur-sm rounded-full border-2 border-white/40 hover:bg-white/30 transition-all">View</span>
                     </div>
-                  </a>
+                  </div>
                 </div>
               ))}
             </div>
@@ -162,6 +168,12 @@ const ClientsPage = () => {
         <Contact />
       </main>
       <Footer />
+      <ImageLightbox
+        isOpen={lightboxOpen}
+        onClose={() => setLightboxOpen(false)}
+        imageSrc={lightboxImage}
+        title={lightboxTitle}
+      />
     </div>
   );
 };

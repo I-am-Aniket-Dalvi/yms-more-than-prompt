@@ -2,11 +2,21 @@ import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Contact from "@/components/Contact";
+import ImageLightbox from "@/components/ImageLightbox";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const ProjectsPage = () => {
   useScrollAnimation();
   const [activeFilter, setActiveFilter] = useState("all");
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxImage, setLightboxImage] = useState("");
+  const [lightboxTitle, setLightboxTitle] = useState("");
+
+  const openLightbox = (src: string, title: string) => {
+    setLightboxImage(src);
+    setLightboxTitle(title);
+    setLightboxOpen(true);
+  };
 
   const filters = [
     { id: "all", label: "All" },
@@ -131,14 +141,12 @@ const ProjectsPage = () => {
                       <h3 className="text-primary-foreground font-poppins font-bold text-center mb-4 text-lg">
                         {project.title}
                       </h3>
-                      <a 
-                        href={project.src} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
+                      <button 
+                        onClick={() => openLightbox(project.src, project.title)}
                         className="px-6 py-2 bg-white text-primary rounded-full font-poppins font-semibold hover:scale-105 hover:shadow-xl transition-all duration-300"
                       >
                         View Project
-                      </a>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -149,6 +157,12 @@ const ProjectsPage = () => {
         <Contact />
       </main>
       <Footer />
+      <ImageLightbox
+        isOpen={lightboxOpen}
+        onClose={() => setLightboxOpen(false)}
+        imageSrc={lightboxImage}
+        title={lightboxTitle}
+      />
     </div>
   );
 };
