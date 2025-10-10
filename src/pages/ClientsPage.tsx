@@ -138,17 +138,22 @@ const ClientsPage = () => {
                   className="animate-on-scroll hover-lift group"
                   style={{ animationDelay: `${(index % 20) * 50}ms` }}
                 >
-                  <div className="relative overflow-hidden rounded-xl shadow-md">
+                  <a 
+                    href={client.src} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="block relative overflow-hidden rounded-xl shadow-md"
+                  >
                     <img
                       src={client.src}
                       alt={`Client ${index + 1}`}
                       loading="lazy"
                       className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
                     />
-                    <div className="absolute inset-0 bg-primary/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                      <span className="text-primary-foreground font-bold text-lg">View</span>
+                    <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/60 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center">
+                      <span className="font-poppins text-white font-bold text-lg px-6 py-2 bg-white/20 backdrop-blur-sm rounded-full border-2 border-white/40 hover:bg-white/30 transition-all">View</span>
                     </div>
-                  </div>
+                  </a>
                 </div>
               ))}
             </div>

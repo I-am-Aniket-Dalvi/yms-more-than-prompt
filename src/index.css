@@ -192,6 +192,28 @@ All colors MUST be HSL.
     background-clip: text;
   }
   
+  /* Swiper custom styles */
+  .testimonials-swiper .swiper-pagination-bullet {
+    background: hsl(var(--primary));
+    opacity: 0.5;
+  }
+
+  .testimonials-swiper .swiper-pagination-bullet-active {
+    opacity: 1;
+    transform: scale(1.25);
+  }
+
+  .testimonials-swiper .swiper-button-next,
+  .testimonials-swiper .swiper-button-prev {
+    color: hsl(var(--primary));
+  }
+
+  .testimonials-swiper .swiper-button-next:after,
+  .testimonials-swiper .swiper-button-prev:after {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
   @media (prefers-reduced-motion: reduce) {
     .animate-on-scroll,
     .animate-on-scroll-fade,

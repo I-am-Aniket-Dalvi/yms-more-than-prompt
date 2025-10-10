@@ -127,13 +127,18 @@ const ProjectsPage = () => {
                       loading="lazy"
                       className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-end p-6">
-                      <h3 className="text-primary-foreground font-bold text-center mb-2">
+                    <div className="absolute inset-0 bg-gradient-to-t from-primary/95 via-primary/60 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-end p-6">
+                      <h3 className="text-primary-foreground font-poppins font-bold text-center mb-4 text-lg">
                         {project.title}
                       </h3>
-                      <button className="px-4 py-2 bg-primary-foreground text-primary rounded-lg font-medium hover:scale-105 transition-transform">
+                      <a 
+                        href={project.src} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="px-6 py-2 bg-white text-primary rounded-full font-poppins font-semibold hover:scale-105 hover:shadow-xl transition-all duration-300"
+                      >
                         View Project
-                      </button>
+                      </a>
                     </div>
                   </div>
                 </div>
